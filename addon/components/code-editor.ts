@@ -18,7 +18,7 @@ export default class CodeEditor extends Component {
   public readOnly?: boolean;
   public onChange?: (v: string) => any;
   public onKeyCommand?: (evt: CodeEditorKeyCommand) => any;
-  public onReady?: (editor: mon.editor.IStandaloneCodeEditor) => any;
+  public onReady?: (editor: mon.editor.IStandaloneCodeEditor, monacoInstance: mon.editor.ICodeEditor) => any;
 
   public buildEditorOptions(): object {
     const { code, language, theme } = this;
@@ -44,9 +44,10 @@ export default class CodeEditor extends Component {
       '.frame-container > iframe'
     )
     const editor = (<any>iframe.contentWindow).editor
+    const monacoInstance = (<any>iframe.contentWindow).monaco.editor
 
     if (this.onReady) {
-      this.onReady(editor)
+      this.onReady(editor, monacoInstance)
     }
   }
 
